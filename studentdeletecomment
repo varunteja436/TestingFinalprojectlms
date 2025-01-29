@@ -1,0 +1,217 @@
+package lmstestingone;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Test;
+
+class StudentdeletecommentJunitTest {
+
+	WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeEach
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    @AfterEach
+    public void tearDown() {
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+    
+    @Test
+    void testPageTitleVisible() {
+    
+    	driver.get("http://localhost:3000");
+    	 
+    	 
+    	 
+   	 	WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "studentmail@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Studentmain@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+		
+		WebElement AssignmentBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[3]/li/a")));
+ 		AssignmentBtn.click();
+		
+		wait.until(ExpectedConditions.urlToBe("http://localhost:3000/studentallassignments"));
+
+        WebElement pageTitle = driver.findElement(By.cssSelector("#root > div > div > div.student-courses-main > div.student-courses-header > h3"));
+        assertTrue(pageTitle.isDisplayed(), "Page title 'My Assignments' is not visible.");
+    }
+
+
+    @Test
+    void testCommentContentVisible() {
+    	driver.get("http://localhost:3000");
+   	 
+   	 
+   	 
+   	 	WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "studentmail@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Studentmain@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+		
+		WebElement AssignmentBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[3]/li/a")));
+ 		AssignmentBtn.click();
+		
+		wait.until(ExpectedConditions.urlToBe("http://localhost:3000/studentallassignments"));
+
+        WebElement commentUserTitle = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/div[7]/div[2]/div[1]"));
+        WebElement commentUserComment = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/div[7]/div[2]/div[2]"));
+
+        assertTrue(commentUserTitle.isDisplayed(), "User comment title is not visible.");
+        assertTrue(commentUserComment.isDisplayed(), "User comment content is not visible.");
+    }
+
+
+    
+	@Test
+	void testCommentsSectionvisibilityforStudent() {
+
+	    driver.get("http://localhost:3000");
+
+	    WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	    String testEmail = "studentmail@gmail.com";
+	    inputField.sendKeys(testEmail);
+
+	    WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	    String testPassword = "Studentmain@123";
+	    passwordField.sendKeys(testPassword);
+
+	    WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	    submitBtn.click();
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    
+	    WebElement myAssignmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[3]/li/a")));
+	    myAssignmentsButton.click();
+	    
+        WebElement commentBox = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[8]/input")));
+
+        assertNotNull(commentBox, "Comment box is displayed");
+
+	}
+	
+	
+	@Test
+	void studentaddingcomment() {
+
+	    driver.get("http://localhost:3000");
+
+	    WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	    String testEmail = "studentmail@gmail.com";
+	    inputField.sendKeys(testEmail);
+
+	    WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	    String testPassword = "Studentmain@123";
+	    passwordField.sendKeys(testPassword);
+
+	    WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	    submitBtn.click();
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    
+	    WebElement myAssignmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[3]/li/a")));
+	    myAssignmentsButton.click();
+
+        WebElement cmtField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[8]/input")));
+	    cmtField.sendKeys("test2 hey");
+	    
+	    WebElement sendButton = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[8]/button"));
+	    sendButton.click();
+
+	    Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+	    String alertText = alert.getText();
+	    assertEquals("Comment added successfully!", alertText);
+	    alert.accept();
+
+	}
+	
+	
+	//only works when changed the xpath for visible comments
+	@Test
+	void testDeleteComment() {
+
+	    driver.get("http://localhost:3000");
+
+	    WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	    String testEmail = "studentmail@gmail.com";
+	    inputField.sendKeys(testEmail);
+
+	    WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	    String testPassword = "Studentmain@123";
+	    passwordField.sendKeys(testPassword);
+
+	    WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	    submitBtn.click();
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    
+	    WebElement myAssignmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[3]/li/a")));
+	    myAssignmentsButton.click();
+	    
+	    WebElement DeleteBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/div[7]/div[2]/div[4]")));
+	    DeleteBtn.click();
+	    
+	    
+
+
+
+	    Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+	    String alertText = alert.getText();
+	    assertEquals("Comment  has been deleted.", alertText);
+	    alert.accept();
+
+	}
+	
+	
+
+
+}
