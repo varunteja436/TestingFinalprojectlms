@@ -1,0 +1,335 @@
+package iteration1testing;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+class RegistrationJunit {
+
+	WebDriver driver;
+
+   @BeforeEach
+   void setUp() {
+       driver = new ChromeDriver();	
+   }
+
+   private void loadRegPage() {
+       driver.get("http://localhost:3000");
+   }
+   
+   
+   
+   
+   
+   
+   @Test
+   public void CreateAccoutWithValidDetails() {
+       loadRegPage();
+       
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("Txtname");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("Txt@gmail.com");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("Txt@123");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+
+   }
+
+   
+   @Test
+   public void Createaccountwithsamecredentials() {
+   	loadRegPage();
+       
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("Txtname");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("Txt@gmail.com");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("Txt@123");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+
+   }
+   
+   
+   @Test
+   public void CreateAccoutWitheincorrectemailandpassword() {
+   	loadRegPage();
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("Txtname");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("Txtwrong@gmail.com");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("Txt@wrong123");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+
+   }
+   
+   
+   @Test
+   public void Createaccountwithfieldempty() {
+   	loadRegPage();
+       
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+
+       try {
+           Thread.sleep(2000);
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       }
+       String actualValue = "";
+       String expectedValue = "AllFiels";
+       assertNotEquals(expectedValue, actualValue, "The all field is missing.");
+       
+
+   }
+   
+   @Test
+   public void createAccountWithFullnameEmpty() {
+   	loadRegPage();
+
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("Txt@gmail.com");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("Txt@123");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+       
+       String actualValue = "";
+       String expectedValue = "FullnameEmpty";
+       assertNotEquals(expectedValue, actualValue, "The fullname field is missing.");
+
+   }
+
+
+          @Test
+   public void Createaccountwithemailempty() {
+       	   loadRegPage();
+       
+              WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+              		+ ""));
+              signupbutton.click();
+
+              
+              WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+              		+ ""));
+              Fullname.sendKeys("txtname");
+
+              WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+              		+ ""));
+              emailField.sendKeys("");
+
+              WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+              		+ ""));
+              passwordField.sendKeys("Txt@123");
+
+              WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+              		+ ""));
+              regButton.click();
+   
+
+              String actualValue = "";
+              String expectedValue = "emailEmpty";
+              assertNotEquals(expectedValue, actualValue, "The email field is missing.");
+
+ 
+ 
+}
+
+           
+   @Test
+   public void Createaccountwithpasswordempty() {
+   	loadRegPage();
+       
+       
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+
+       
+       WebElement Fullname = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/input"
+       		+ ""));
+       Fullname.sendKeys("Txtname");
+
+       WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[3]/input"
+       		+ ""));
+       emailField.sendKeys("Txt@gmail.com");
+
+       WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[4]/input"
+       		+ ""));
+       passwordField.sendKeys("");
+
+       WebElement regButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/button"
+       		+ ""));
+       regButton.click();
+   
+   
+   String actualValue = "Txt@123";
+   String expectedValue = "IncorrectPassword";
+   assertNotEquals(expectedValue, actualValue, "The password field is missing.");
+}
+
+   
+   @Test
+   public void Alreadyhaveaccountbuttoncheck() {
+   	loadRegPage();
+       
+       WebElement signupbutton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p[1]/span"
+       		+ ""));
+       signupbutton.click();
+       WebElement alreadyhaveanaccount = driver.findElement(By.xpath("/html/body/div/div/div/div/div/p/span"
+       		+ ""));
+       alreadyhaveanaccount.click();
+   }
+
+
+
+
+
+
+   @Test
+ public void Userloginwithcorrectemail() {
+   	loadRegPage();
+
+    
+    
+
+
+     WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"
+     		+ ""));
+     emailField.sendKeys("vamsistu@gmail.com");
+
+     WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"
+     		+ ""));
+     passwordField.sendKeys("12345678");
+
+     
+     WebElement submitButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"
+     		+ ""));
+     submitButton.click();
+     
+    
+ }
+   
+   
+   @Test
+   public void loginwithoutaccountcreation() {
+   	loadRegPage();
+
+WebElement emailField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"
+	+ ""));
+emailField.sendKeys("lms@gmail.com");
+
+WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"
+	+ ""));
+passwordField.sendKeys("87654321");
+
+
+WebElement submitButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"
+	+ ""));
+submitButton.click();
+
+String actualValue = "";
+String expectedValue = "user email and passowrd does not exist please create account";
+assertEquals(expectedValue, actualValue, "The password field is missing.");
+} 
+ 
+
+   
+
+   @AfterEach
+	void tearDown() {
+		if (driver != null) {
+			driver.quit();
+		}
+   
+   
+}
+     
+ 
+   
+}
