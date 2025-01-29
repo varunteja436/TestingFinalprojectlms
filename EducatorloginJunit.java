@@ -1,0 +1,94 @@
+package lmstestingone;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+class EducatorloginJunit {
+
+	 private WebDriver driver;
+	    
+
+	    @BeforeEach
+	    void setUp() {
+	        // Set the path to the WebDriver executable (e.g., chromedriver)
+	    	driver = new ChromeDriver();
+	    }
+
+	    @AfterEach
+	    void tearDown() {
+	        if (driver != null) {
+	            driver.quit();
+	        }
+	    }
+
+	    private void loadLogin() {
+	        driver.get("http://localhost:3000");
+	    }
+
+	    private void login(String email, String password) {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div/div/div/div/form/input[1]")));
+	        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div/div/div/div/form/input[2]")));
+
+	        emailField.sendKeys(email);
+	        passwordField.sendKeys(password);
+
+	        WebElement loginButton = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	        loginButton.click();
+	    }
+
+	    @Test
+	    void testCorrectLogin() {
+	        loadLogin();
+	        login("tejeducator@gmail.com", "12345678");
+	        assertNotEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should navigate to Dashboard page on correct login");
+	    }
+
+	    @Test
+	    void testWrongEmail() {
+	        loadLogin();
+	        login("incorrect@gmail.com", "12345678");
+	        assertEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should not navigate to Dashboard page with wrong email");
+	    }
+
+	    @Test
+	    void testWrongPassword() {
+	        loadLogin();
+	        login("tejeducator@gmail.com", "incorrectpassword");
+	        assertEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should not navigate to Dashboard page with wrong password");
+	    }
+
+	    @Test
+	    void testEmptyEmail() {
+	        loadLogin();
+	        login("", "12345678");
+	        assertEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should not navigate to Dashboard page with empty email");
+	    }
+
+	    @Test
+	    void testEmptyPassword() {
+	        loadLogin();
+	        login("tejeduvator@gmail.com", "");
+	        assertEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should not navigate to Dashboard page with empty password");
+	    }
+
+	    @Test
+	    void testEmptyCredentials() {
+	        loadLogin();
+	        login("", "");
+	        assertEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should not navigate to Dashboard page with empty credentials");
+	    }
+
+}
