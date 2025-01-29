@@ -1,0 +1,238 @@
+package lmstestingone;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.Test;
+
+class studentenrollcourseJunit {
+	
+	  WebDriver driver;
+	    WebDriverWait wait;
+
+	    @BeforeEach
+	    public void setUp() {
+	        driver = new ChromeDriver();
+	        driver.manage().window().maximize();
+	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    }
+
+	    @AfterEach
+	    public void tearDown() {
+
+	        try {
+	            Thread.sleep(2000);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+	        if (driver != null) {
+	            driver.quit();
+	        }
+	    }
+	    
+	
+	
+
+    @Test
+    public void testCoursesHeaderVisible() {
+    	driver.get("http://localhost:3000");
+     	 
+     	 
+     	 
+    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+ 		String testEmail = "studentmail@gmail.com";
+ 		inputField.sendKeys(testEmail);
+
+ 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+ 		String testPassword = "Studentmain@123";
+ 		passwordField.sendKeys(testPassword);
+
+ 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+ 		submitBtn.click();
+ 		
+ 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+ 		
+ 		WebElement courseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[2]/li/a")));
+		courseBtn.click();
+		
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+        WebElement coursesHeader = driver.findElement(By.xpath("//h3[text()='Courses']"));
+        assertTrue(coursesHeader.isDisplayed(), "Courses header is not displayed.");
+    }
+
+    @Test
+    public void testAvailableCoursesInCards() {
+    	driver.get("http://localhost:3000");
+     	 
+     	 
+     	 
+    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+ 		String testEmail = "studentmail@gmail.com";
+ 		inputField.sendKeys(testEmail);
+
+ 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+ 		String testPassword = "Studentmain@123";
+ 		passwordField.sendKeys(testPassword);
+
+ 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+ 		submitBtn.click();
+ 		
+ 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+ 		
+ 		WebElement courseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[2]/li/a")));
+		courseBtn.click();
+		
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+        WebElement quaField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[2]/div[2]")));
+        
+        assertNotNull(quaField, "card should be present.");
+        assertNotEquals("#root > div > div > div.student-course-main > div.student-course-details > div.unenrolled-course-wrapper > div.unenrolled-course-card-wrapper > div:nth-child(1)", quaField.getText(), "title should match");
+    }
+
+    @Test
+    public void testRedirectToCourseDetails() {
+    	driver.get("http://localhost:3000");
+    	 
+    	 
+    	 
+   	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "studentmail@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Studentmain@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+		
+		WebElement courseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[2]/li/a")));
+		courseBtn.click();
+		
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
+		
+		WebElement coursedetBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[2]/div[2]/div[1]/button")));
+		coursedetBtn.click();
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+       WebElement quaField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[1]/span[2]")));
+       
+       assertNotNull(quaField, "title should be present.");
+       assertEquals("React", quaField.getText(), "title should match");
+     
+    }
+
+    @Test
+    public void testCourseDetailsDisplayed() {
+    	driver.get("http://localhost:3000");
+      	 
+      	 
+      	 
+     	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+  		String testEmail = "studentmail@gmail.com";
+  		inputField.sendKeys(testEmail);
+
+  		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+  		String testPassword = "Studentmain@123";
+  		passwordField.sendKeys(testPassword);
+
+  		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+  		submitBtn.click();
+  		
+  		WebElement courseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[2]/li/a")));
+		courseBtn.click();
+		
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(1));
+		
+		WebElement coursedetBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[2]/div[2]/div[1]/button")));
+		coursedetBtn.click();
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+        
+        WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.urlToBe("http://localhost:3000/studentunenrolledcourse"));
+        
+        WebElement courseTitle = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]"));
+        WebElement courseDescription = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[2]"));
+        WebElement enrollBtn = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[3]/button"));
+
+        assertTrue(courseTitle.isDisplayed(), "Course Title is not displayed.");
+        assertTrue(courseDescription.isDisplayed(), "Course Description is not displayed.");
+        assertTrue(enrollBtn.isDisplayed(), "Enroll button is not displayed.");
+    }
+
+    @Test
+    public void testEnrollmentAndAlert() throws InterruptedException {
+    	driver.get("http://localhost:3000");
+      	 
+      	 
+      	 
+     	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+  		String testEmail = "studentmail@gmail.com";
+  		inputField.sendKeys(testEmail);
+
+  		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+  		String testPassword = "Studentmain@123";
+  		passwordField.sendKeys(testPassword);
+
+  		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+  		submitBtn.click();
+  		
+  		WebElement courseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[2]/li/a")));
+		courseBtn.click();
+  		
+  		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  		
+  		
+  		
+        WebElement firstCourseCard = driver.findElement(By.cssSelector("#root > div > div > div.student-course-main > div.student-course-details > div.unenrolled-course-wrapper > div.unenrolled-course-card-wrapper"));
+        
+        WebElement coursedetBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[2]/div[2]/div[1]/button")));
+		coursedetBtn.click();
+		
+
+      
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+
+        wait.until(ExpectedConditions.urlToBe("http://localhost:3000/studentunenrolledcourse"));
+        
+        WebElement enrollBtn = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[3]/button"));
+
+        enrollBtn.click();
+
+        Thread.sleep(2000);
+
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        assertEquals("Successfully enrolled.", alertText, "Alert text is not as expected.");
+
+        alert.accept();
+    }
+
+   
+
+}
