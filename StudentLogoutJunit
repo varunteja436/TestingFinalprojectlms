@@ -1,0 +1,152 @@
+package iteration1testing;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+class StudentLogoutJunit {
+	private WebDriver driver;
+
+	@BeforeEach
+	void setUp() {
+		driver = new ChromeDriver();
+	}
+
+	@AfterEach
+	void tearDown() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+
+	@Test
+	void testAccessStudentHomePage() {
+		driver.get("http://localhost:3000");
+		
+		WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "student@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Student@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		
+		String url = driver.getCurrentUrl();
+		String expectedUrl = "http://localhost:3000/studentdashboard";
+		
+		assertEquals(expectedUrl, expectedUrl);		
+	}
+	
+	@Test
+	void studentLogOutbuttonVisible() {
+		driver.get("http://localhost:3000");
+	
+		WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "student@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Student@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+		WebElement logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div/div/aside/ul[4]/li/a")));
+		
+		Boolean buttoDisplayed = logoutButton.isDisplayed();
+		
+		assertTrue(buttoDisplayed);
+	}
+	
+	@Test
+	void studentLogOutButtonClickable() {
+		driver.get("http://localhost:3000");
+		
+		WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "student@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Student@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+		WebElement logOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+		Boolean buttonDisplayed = logOutButton.isEnabled();;
+		
+		assertTrue(buttonDisplayed);
+	}
+	
+	@Test
+	void studentSignOutButtonText() {
+		driver.get("http://localhost:3000");
+		
+		WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "student@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Student@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+		WebElement logOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+		String buttonText = logOutButton.getText();;
+		
+		assertEquals(buttonText, "Log out");
+	}
+	
+	@Test
+	void studentSignOutButton() {
+		driver.get("http://localhost:3000");
+		
+		WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+		String testEmail = "student@gmail.com";
+		inputField.sendKeys(testEmail);
+
+		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+		String testPassword = "Student@123";
+		passwordField.sendKeys(testPassword);
+
+		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+		submitBtn.click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+		WebElement logOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+
+		logOutButton.click();
+		
+		String url = driver.getCurrentUrl();
+		String expectedUrl = "http://localhost:3000";
+		
+		assertEquals(expectedUrl, expectedUrl);	
+	}
+
+}
