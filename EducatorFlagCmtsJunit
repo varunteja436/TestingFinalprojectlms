@@ -1,0 +1,148 @@
+package iteration2testing;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+class EducatorFlagCmtsJunit {
+
+	 WebDriver driver;
+
+	    @BeforeEach
+	    void setUp() {
+	        driver = new ChromeDriver();
+	        
+	    }
+
+	    @Test
+	    void testEducatorLoginSuccessfully() {
+	    	 driver.get("http://localhost:3000");
+	    	 
+	    	 
+	    	 
+	    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	 		String testEmail = "educator@mail.com";
+	 		inputField.sendKeys(testEmail);
+
+	 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	 		String testPassword = "Educator@123";
+	 		passwordField.sendKeys(testPassword);
+
+	 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	 		submitBtn.click();
+	 		
+	 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+
+	 		assertNotEquals("http://localhost:3000/Educatordashboard", driver.getCurrentUrl(), "User should navigate to Dashboard page on correct login");
+	    }
+	    
+	    @Test
+	    void testEducatorredirecttoMyassigmentsSuccessfully() {
+	    	 driver.get("http://localhost:3000");
+	    	 
+	    	 
+	    	 
+	    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	 		String testEmail = "educator@mail.com";
+	 		inputField.sendKeys(testEmail);
+
+	 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	 		String testPassword = "Educator@123";
+	 		passwordField.sendKeys(testPassword);
+
+	 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	 		submitBtn.click();
+	 		
+	 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+	 		
+	   		WebElement myassigmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+	   		myassigmentsButton.click();
+	   		
+	   		assertEquals("http://localhost:3000/educatormyassignments", driver.getCurrentUrl(), "User should navigate to myassigmenst page");
+		    
+
+	 		  }
+	    
+	    @Test
+	    void testEducatorflagSuccessfully() {
+	    	 driver.get("http://localhost:3000");
+	    	 
+	    	 
+	    	 
+	    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	 		String testEmail = "educator@mail.com";
+	 		inputField.sendKeys(testEmail);
+
+	 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	 		String testPassword = "Educator@123";
+	 		passwordField.sendKeys(testPassword);
+
+	 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	 		submitBtn.click();
+	 		
+	 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+	 		
+	   		WebElement myassigmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+	   		myassigmentsButton.click();
+	   		
+	   		WebElement flagButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div[4]/div[2]/span[3]")));
+	   		flagButton.click();
+	    
+	    Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        String alertText = alert.getText();
+        assertEquals("Flag updated for user .", alertText);
+	    alert.accept();
+		    
+
+	 		  }
+	    
+	    @Test
+	    void testEducatorUnflagSuccessfully() {
+	    	 driver.get("http://localhost:3000");
+	    	 
+	    	 
+	    	 
+	    	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+	 		String testEmail = "educator@mail.com";
+	 		inputField.sendKeys(testEmail);
+
+	 		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+	 		String testPassword = "Educator@123";
+	 		passwordField.sendKeys(testPassword);
+
+	 		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+	 		submitBtn.click();
+	 		
+	 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+	 		
+	   		WebElement myassigmentsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/aside/ul[4]/li/a")));
+	   		myassigmentsButton.click();
+	   		
+	   		WebElement unflagButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div[4]/div[2]/span[3]")));
+	   		unflagButton.click();
+	   		
+			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+	        String alertText = alert.getText();
+	        assertEquals("Flag updated for user .", alertText);
+		    alert.accept();
+		    
+
+	 		  }
+	    @AfterEach
+	    void tearDown() {
+	        if (driver != null) {
+	            driver.quit();
+	        }
+	    }
+}
