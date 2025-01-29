@@ -1,0 +1,58 @@
+package iteration1testing;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class EducatorDeleteCourseJunit {
+	
+    WebDriver driver;
+
+	@BeforeEach
+	void setUp() {
+		driver = new ChromeDriver();
+	}
+
+	@AfterEach
+	void tearDown() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+
+    @Test
+    void testEducatorCanDeleteCourse() {
+    	driver.get("http://localhost:3000");
+	   	 
+	   	 
+	   	 
+     	 WebElement inputField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[1]"));
+  		String testEmail = "dummy1@gmail.com";
+  		inputField.sendKeys(testEmail);
+  
+  		WebElement passwordField = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/input[2]"));
+  		String testPassword = "Dummy@1234";
+  		passwordField.sendKeys(testPassword);
+  
+  		WebElement submitBtn = driver.findElement(By.xpath("/html/body/div/div/div/div/div/form/button"));
+  		submitBtn.click();
+    	
+    	
+        WebElement deleteButton = driver.findElement(By.className("delete-course-button"));
+        assertTrue(deleteButton.isDisplayed());
+        assertTrue(deleteButton.isEnabled());
+        deleteButton.click();
+        driver.switchTo().alert().accept();
+        WebElement coursevisible = driver.findElement(By.className("courses visible"));
+        assertFalse(coursevisible.getText().contains("Course Title"));
+        WebElement successMessage = driver.findElement(By.className("success-message"));
+        assertTrue(successMessage.isDisplayed());
+        assertEquals("Course deleted successfully!", successMessage.getText());
+    }
+
+}
